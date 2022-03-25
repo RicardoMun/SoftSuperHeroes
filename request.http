@@ -1,0 +1,83 @@
+###
+POST http://localhost:5000/api/v1/people/person HTTP/1.1
+Content-Type: application/json
+
+{
+  "name": "Ricardo",
+  "lastName": "Muñoz",
+  "dni": "1234",
+  "address": {
+    "city": "Manizales",
+    "zip_code": 170002,
+    "geo": [1234, 4567]
+  }
+}
+
+###
+GET http://localhost:5000/api/v1/people HTTP/1.1
+
+###
+GET http://localhost:5000/api/v1/people/personId HTTP/1.1
+
+###
+PUT http://localhost:5000/api/v1/people/personId HTTP/1.1
+Content-Type: application/json
+
+{
+  "name": "Pablito",
+  "lastName": "Lozada",
+  "dni": "111111",
+  "address": {
+    "city": "Nariño",
+    "zip_code": 170002,
+    "geo": [0.124, 43254]
+  }
+}
+
+###
+DELETE http://localhost:5000/api/v1/people/personId HTTP/1.1
+
+//-----------------   SUPERHERO --------------------------//
+
+###
+POST http://localhost:5000/api/v1/superheroes/superhero HTTP/1.1
+Content-Type: application/json
+
+{
+  "superHero": "Batman",
+  "realName": "Bruce Wayne",
+  "features": {
+    "universe": "Gotham",
+    "superPower": ["Be rich"]
+  },
+  "superHero_sideKick":{
+    "sideKick": "Adolf",
+    "superPower_sideKick": ["Mayordomo"]
+  }
+}
+
+###
+GET http://localhost:5000/api/v1/superheroes HTTP/1.1
+
+###
+GET http://localhost:5000/api/v1/superheroes/superheroId HTTP/1.1
+
+###
+PUT http://localhost:5000/api/v1/superheroes/superheroId HTTP/1.1
+Content-Type: application/json
+
+{
+  "superHero": "Mario",
+  "realName": "Mario Bros",
+  "features": {
+    "universe": "Palacio",
+    "superPower": ["Comer hongos"]
+  },
+  "superHero_sideKick":{
+    "sideKick": "Luigui",
+    "superPower_sideKick": ["Ser verde"]
+  }
+}
+
+###
+DELETE  http://localhost:5000/api/v1/superheroes/superheroId HTTP/1.1
