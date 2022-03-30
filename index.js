@@ -4,7 +4,7 @@ const app = express()
 const routerApi = require('./src/routes')
 require('dotenv').config()
 const port = process.env.PORT
-const {logErrors, errorHandler} = require('./src/handlers/errors.handler')
+const {logErrors, errorHandler, boomErrorHandler} = require('./src/handlers/errors.handler')
 
 app.listen(port, () => console.log('Active port: ', port))
 
@@ -17,6 +17,7 @@ mongoose
 app.use(express.json())
 app.use(logErrors)
 app.use(errorHandler)
+app.use(boomErrorHandler)
 
 /* permite llamado a los rest */
 routerApi(app)
