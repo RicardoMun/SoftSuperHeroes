@@ -4,9 +4,9 @@ const app = express()
 const routerApi = require('./src/routes')
 require('dotenv').config()
 const port = process.env.PORT
+const {logErrors, errorHandler} = require('./src/handlers/errors.handler')
 
 app.listen(port, () => console.log('Active port: ', port))
-
 
 mongoose
     .connect(process.env.MONGODB_STRING_CONNECTION)
@@ -15,5 +15,8 @@ mongoose
 
 /* REQUEST A SOLICITUDES HTTP EN FORMATO JSON */
 app.use(express.json())
+app.use(logErrors)
+app.use(errorHandler)
+
 /* permite llamado a los rest */
 routerApi(app)

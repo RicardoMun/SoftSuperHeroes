@@ -1,5 +1,6 @@
 const express = require('express')
 const superheroRouter = express.Router()
+const Boom = require('@hapi/boom')
 const superheroSchema = require('../models/superheroModel')
 const superHeroService = require('../services/superheroes.service')
 const service = new superHeroService();

@@ -1,4 +1,5 @@
 const superheroModel = require('../models/superheroModel');
+const Boom = require('@hapi/boom')
 
 class superHeroService {
  /* Promesas y funciones asincrónicas
