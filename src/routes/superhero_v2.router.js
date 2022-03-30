@@ -27,7 +27,7 @@ superherov2Router.post('/superhero', async (req, res) => {
 
 });
 
-superherov2Router.get('/', async (req, res) => {
+superherov2Router.get('/', async (req, res, next) => {
 
   try {
     const data = await service.find()
@@ -39,7 +39,7 @@ superherov2Router.get('/', async (req, res) => {
 
 });
 
-superherov2Router.get('/:superheroId', async (req, res) => {
+superherov2Router.get('/:superheroId', async (req, res, next) => {
 
   try {
     const { superheroId } = req.params;
@@ -48,12 +48,12 @@ superherov2Router.get('/:superheroId', async (req, res) => {
       .showSuperHero(superheroId)
       res.status(302).json(data)
   } catch (error) {
-    res.status(404).json({ message: error });
+    next(error)
   }
 
 });
 
-superherov2Router.put('/:superheroId', async (req, res) => {
+superherov2Router.put('/:superheroId', async (req, res, next) => {
 
   try {
     const { superheroId } = req.params;
@@ -63,12 +63,12 @@ superherov2Router.put('/:superheroId', async (req, res) => {
       .editSuperHero(superheroId, superHero, realName, superPower)
       res.status(200).json(data)
   } catch (error) {
-    res.status(304).json({ message: error });
+    next(error)
   }
 
 });
 
-superherov2Router.delete('/:superheroId', async (req, res) => {
+superherov2Router.delete('/:superheroId', async (req, res, next) => {
 
   try {
     const { superheroId } = req.params;
@@ -77,7 +77,7 @@ superherov2Router.delete('/:superheroId', async (req, res) => {
       .removeSuperHero(superheroId)
       res.status(200).json(data)
   } catch (error) {
-    res.status(404).json({ message: error });
+    next(error)
   }
 
 });

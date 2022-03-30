@@ -42,9 +42,11 @@ class superHeroService {
   }
 
   async removeSuperHero(superheroId) {
-    const superhero_remove = superHeroModel.findById({ _id: superheroId })
-    if (!superhero_remove) throw Boom.notFound('No se encontró el superheroe')
-    return superheroModel.deleteOne(superhero_remove)
+    return superheroModel.findById({ _id: superheroId }).then(
+      (superheroFind) => {
+        if (!superheroFind) throw Boom.notFound('No se encontró el superheroe')
+        return superheroMoodel.deleteOne(superheroFind)
+      })
   }
 }
 
