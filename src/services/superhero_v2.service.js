@@ -10,7 +10,7 @@ class superHeroService {
     return superherov2
   }
 
-  async listSuperHero() {
+  async listSuperHeroes() {
     return superheroModel.find()
   }
 
@@ -24,9 +24,12 @@ class superHeroService {
   }
 
   async showSuperHero(superheroId) {
-    const superhero = superheroModel.findById({ _id: superheroId })
-    if(!superhero) throw Boom.notFound('No se encontró el superheroe')
-    return superhero
+    return superheroModel.findById({ _id: superheroId }).then(
+      (superheroFind) => {
+        if(!superheroFind) throw Boom.notFound('No se encontró el superheroe')
+        return superheroFind
+      }
+    )
   }
 
   async editSuperHero(superheroId, superHero, realName, superPower) {

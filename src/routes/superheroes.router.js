@@ -20,7 +20,7 @@ superheroRouter.post('/superhero', async (req, res) => {
 superheroRouter.get('/', async (req, res) => {
 
   await service
-    listSuperheroes()
+    .listSuperHero()
     .then((data) => res.status(200).json(data))
     .catch((err) => res.status(404).json({ message: err }));
 });

@@ -31,7 +31,6 @@ superherov2Router.get('/', async (req, res, next) => {
 
   try {
     const data = await service.find()
-    .listSuperHero()
     res.status(200).json(data)
   } catch (error) {
     next(error)
