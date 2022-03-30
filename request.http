@@ -98,7 +98,7 @@ Content-Type: application/json
 GET http://localhost:5000/api/v1/superheroes_v2 HTTP/1.1
 
 ###
-GET http://localhost:5000/api/v1/superheroes_v2/624453dec814cc6b333d8365 HTTP/1.1
+GET http://localhost:5000/api/v1/superheroes_v2/624453dec814cc6b333d8367 HTTP/1.1
 
 ###
 PUT http://localhost:5000/api/v1/superheroes_v2/624453dec814cc6b333d8367 HTTP/1.1
