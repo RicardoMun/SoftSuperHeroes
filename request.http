@@ -25,7 +25,7 @@ Content-Type: application/json
 
 {
   "name": "Pablito",
-  "lastName": "Lozada",
+  "lastName": "Gómez",
   "dni": "111111",
   "address": {
     "city": "Nariño",
