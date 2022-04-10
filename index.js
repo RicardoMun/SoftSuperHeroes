@@ -2,10 +2,17 @@ const mongoose = require('mongoose')
 const express = require('express')
 const app = express()
 const routerApi = require('./src/routes')
-require('dotenv').config()
 const port = process.env.PORT
 const {logErrors, errorHandler, boomErrorHandler} = require('./src/handlers/errors.handler')
+require('dotenv').config()
+
+//TWILIO
 const sgMail = require('@sendgrid/mail')
+const email = require('./mail')
+const client = require('twilio')(accountSid, authToken)
+const accountSid = process.env.TWILIO_ACCOUNT_SID;
+const authToken = process.env.TWILIO_AUTH_TOKEN;
+sgMail.setApiKey(process.env.SENDGRID_API_KEY)
 
 
 app.listen(port, () => console.log('Active port: ', port))
@@ -15,24 +22,40 @@ mongoose
     .then(() => console.log('Success connection'))
     .catch((error) => console.log(error))
 
-
-/* TWILIO */
-const accountSid = process.env.TWILIO_ACCOUNT_SID;
-const authToken = process.env.TWILIO_AUTH_TOKEN;
-const client = require('twilio')(accountSid, authToken);
-
+//Mensaje via SMS
 client.messages
   .create({
      body: 'Prueba de twilio. Hola Ricardo :)',
      from: '+12189356135',
      to: '+573234993426'
    })
-  .then(message => console.log(message.sid));
+  .then(message => console.log(`Mensaje enviado ${message.sid}`));
+
+
+/* REQUEST A SOLICITUDES HTTP EN FORMATO JSON */
+app.use(express.json())
+app.use(logErrors)
+app.use(errorHandler)
+app.use(boomErrorHandler)
+
+
+/* permite llamado a los rest */
+routerApi(app)
+
 
 
 /* SENDGRID */
+//Mensaje via Email
+/* sgMail
+  .send(msg)
+  .then(() => {
+    console.log('Email sent')
+  })
+  .catch((error) => {
+    console.error(error)
+  }) */
 
-sgMail.setApiKey(process.env.SENDGRID_API_KEY)
+/*
 const msg = {
   to: 'ricardo.munozm@autonoma.edu.co', // Change to your recipient
   from: 'ricardo.munozm@autonoma.edu.co', // Change to your verified sender
@@ -85,21 +108,5 @@ const msg = {
     </div>
   </body>
   </html>`,
-}
-sgMail
-  .send(msg)
-  .then(() => {
-    console.log('Email sent')
-  })
-  .catch((error) => {
-    console.error(error)
-  })
+} */
 
-/* REQUEST A SOLICITUDES HTTP EN FORMATO JSON */
-app.use(express.json())
-app.use(logErrors)
-app.use(errorHandler)
-app.use(boomErrorHandler)
-
-/* permite llamado a los rest */
-routerApi(app)
