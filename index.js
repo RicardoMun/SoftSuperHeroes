@@ -9,9 +9,10 @@ require('dotenv').config()
 //TWILIO
 const sgMail = require('@sendgrid/mail')
 const email = require('./mail')
+
+const accountSid = 'AC862a9268e0b9057c25d8b498f634013d';
+const authToken = '3c8e53fa1f4052b67d05c0d55b1a38e3';
 const client = require('twilio')(accountSid, authToken)
-const accountSid = process.env.TWILIO_ACCOUNT_SID;
-const authToken = process.env.TWILIO_AUTH_TOKEN;
 sgMail.setApiKey(process.env.SENDGRID_API_KEY)
 
 
@@ -26,8 +27,8 @@ mongoose
 client.messages
   .create({
      body: 'Prueba de twilio. Hola Ricardo :)',
-     from: '+12189356135',
-     to: '+573234993426'
+     from: 'whatsapp:+12189356135',
+     to: 'whatsapp:+573234993426'
    })
   .then(message => console.log(`Mensaje enviado ${message.sid}`));
 
@@ -46,16 +47,15 @@ routerApi(app)
 
 /* SENDGRID */
 //Mensaje via Email
-/* sgMail
+ /* sgMail
   .send(msg)
   .then(() => {
     console.log('Email sent')
   })
   .catch((error) => {
     console.error(error)
-  }) */
+  })
 
-/*
 const msg = {
   to: 'ricardo.munozm@autonoma.edu.co', // Change to your recipient
   from: 'ricardo.munozm@autonoma.edu.co', // Change to your verified sender
@@ -108,5 +108,5 @@ const msg = {
     </div>
   </body>
   </html>`,
-} */
-
+}
+ */
