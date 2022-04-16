@@ -6,15 +6,6 @@ const port = process.env.PORT
 const {logErrors, errorHandler, boomErrorHandler} = require('./src/handlers/errors.handler')
 require('dotenv').config()
 
-//TWILIO
-const sgMail = require('@sendgrid/mail')
-const email = require('./mail')
-
-const accountSid = 'AC862a9268e0b9057c25d8b498f634013d';
-const authToken = '3c8e53fa1f4052b67d05c0d55b1a38e3';
-const client = require('twilio')(accountSid, authToken)
-sgMail.setApiKey(process.env.SENDGRID_API_KEY)
-
 
 app.listen(port, () => console.log('Active port: ', port))
 
@@ -22,15 +13,6 @@ mongoose
     .connect(process.env.MONGODB_STRING_CONNECTION)
     .then(() => console.log('Success connection'))
     .catch((error) => console.log(error))
-
-//Mensaje via SMS
-client.messages
-  .create({
-     body: 'Prueba de twilio. Hola Ricardo :)',
-     from: 'whatsapp:+12189356135',
-     to: 'whatsapp:+573234993426'
-   })
-  .then(message => console.log(`Mensaje enviado ${message.sid}`));
 
 
 /* REQUEST A SOLICITUDES HTTP EN FORMATO JSON */
@@ -44,10 +26,40 @@ app.use(boomErrorHandler)
 routerApi(app)
 
 
+// Cambio hoy 15 Abrill 2022 -> Se ordena index
+/* TWILIO SENDGRID */
+//TWILIO
+const sgMail = require('@sendgrid/mail')
+const email = require('./src/mail')
 
-/* SENDGRID */
+const accountSid = 'AC862a9268e0b9057c25d8b498f634013d';
+const authToken = '3c8e53fa1f4052b67d05c0d55b1a38e3';
+const client = require('twilio')(accountSid, authToken)
+sgMail.setApiKey(process.env.SENDGRID_API_KEY)
+
+
+//Mensaje via WhatsApp
+client.messages
+  .create({
+     body: 'Prueba de twilio. Hola Ricardo :)',
+     from: 'whatsapp:+12189356135',
+     to: 'whatsapp:+573234993426'
+   })
+  .then(message => console.log(`Mensaje enviado ${message.sid}`));
+
+
+  //Mensaje via SMS
+client.messages
+  .create({
+     body: 'Prueba de twilio. Hola Ricardo :)',
+     from: '+12189356135',
+     to: '+573234993426'
+   })
+  .then(message => console.log(`Mensaje enviado ${message.sid}`));
+
+
 //Mensaje via Email
- /* sgMail
+sgMail
   .send(msg)
   .then(() => {
     console.log('Email sent')
@@ -109,4 +121,4 @@ const msg = {
   </body>
   </html>`,
 }
- */
+
